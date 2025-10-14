@@ -26,32 +26,25 @@
 </main>
 
 <script>
-const channel = new BroadcastChannel('darkcafe_channel');
-
-channel.onmessage = (event) => {
-  const order = event.data;
-  const tbody = document.querySelector("#ordersTable tbody");
-  const row = document.createElement("tr");
-  row.innerHTML = `<td>${order.name}</td><td>${order.price}</td>`;
-  tbody.appendChild(row);
-};
-
 async function fetchOrders() {
   const url = "https://script.google.com/macros/s/AKfycbxO9JvAVlL2TDRixPmXnO9yrnsTe-D5TU9fkAfieGQZ363XrsoH4VhmTImUh2Fz3_N7/exec";
-  const response = await fetch(url);
-  const orders = await response.json();
-  const tbody = document.querySelector("#ordersTable tbody");
-  tbody.innerHTML = "";
-  orders.forEach(order => {
-    const row = document.createElement("tr");
-    row.innerHTML = `<td>${order.name}</td><td>${order.price}</td>`;
-    tbody.appendChild(row);
-  });
+  try {
+    const response = await fetch(url);
+    const orders = await response.json();
+    const tbody = document.querySelector("#ordersTable tbody");
+    tbody.innerHTML = ""; // مسح أي بيانات قديمة
+
+    orders.forEach(order => {
+      const row = document.createElement("tr");
+      row.innerHTML = `<td>${order.name}</td><td>${order.price}</td>`;
+      tbody.appendChild(row);
+    });
+  } catch (err) {
+    console.error("فشل جلب الطلبات:", err);
+  }
 }
 
+// تحديث كل ثانية
 fetchOrders();
-setInterval(fetchOrders, 5000);
-</script>
-
-</body>
-</html>
+setInterval(fetchOrders, 1000);
+</scri
