@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Cafe POS - مدير</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+<h1>مدير دارك كافيه</h1>
+</header>
+
+<main>
+<h2>قائمة الطلبات</h2>
+<table id="ordersTable">
+<thead>
+<tr>
+<th>اسم المنتج</th>
+<th>السعر</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</main>
+
+<script>
+const channel = new BroadcastChannel('darkcafe_channel');
+
+channel.onmessage = (event) => {
+  const order = event.data;
+  const tbody = document.querySelector("#ordersTable tbody");
+  const row = document.createElement("tr");
+  row.innerHTML = `<td>${order.name}</td><td>${order.price}</td>`;
+  tbody.appendChild(row);
+};
+
+async function fetchOrders() {
+  const url = "https://script.google.com/macros/s/AKfycbxO9JvAVlL2TDRixPmXnO9yrnsTe-D5TU9fkAfieGQZ363XrsoH4VhmTImUh2Fz3_N7/exec";
+  const response = await fetch(url);
+  const orders = await response.json();
+  const tbody = document.querySelector("#ordersTable tbody");
+  tbody.innerHTML = "";
+  orders.forEach(order => {
+    const row = document.createElement("tr");
+    row.innerHTML = `<td>${order.name}</td><td>${order.price}</td>`;
+    tbody.appendChild(row);
+  });
+}
+
+fetchOrders();
+setInterval(fetchOrders, 5000);
+</script>
+
+</body>
+</html>
