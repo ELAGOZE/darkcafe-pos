@@ -1,1 +1,22 @@
+const channel = new BroadcastChannel('darkcafe_channel');
 
+function sendToGoogleSheet(item) {
+  fetch('https://script.google.com/macros/s/AKfycbxO9JvAVlL2TDRixPmXnO9yrnsTe-D5TU9fkAfieGQZ363XrsoH4VhmTImUh2Fz3_N7/exec', {
+    method: 'POST',
+    body: JSON.stringify(item),
+    headers: {'Content-Type': 'application/json'}
+  })
+  .then(res => console.log('✅ تم الإرسال للـ Sheet'))
+  .catch(err => console.error('❌ حصل خطأ:', err));
+
+  channel.postMessage(item);
+}
+
+function saveOrder() {
+  const item = {
+    name: document.getElementById('itemName').value,
+    price: document.getElementById('itemPrice').value
+  };
+  sendToGoogleSheet(item);
+  alert("تم حفظ الطلب ✅");
+}
