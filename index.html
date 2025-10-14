@@ -1,1 +1,32 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Cafe POS - كاشير</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+<h1>كاشير دارك كافيه</h1>
+</header>
+
+<main>
+<div class="order-panel">
+<h2>إضافة طلب</h2>
+<input type="text" id="itemName" placeholder="اسم المنتج">
+<input type="number" id="itemPrice" placeholder="السعر">
+<button onclick="saveOrder()">حفظ الطلب</button>
+</div>
+
+<div class="order-list">
+<h2>الطلبات</h2>
+<ul id="orders"></ul>
+<p>الإجمالي: <span id="total">0</span> جنيه</p>
+</div>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
 
