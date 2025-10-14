@@ -1,7 +1,7 @@
 const channel = new BroadcastChannel('darkcafe_channel');
 
 function sendToGoogleSheet(item) {
-  fetch('https://script.google.com/macros/s/AKfycbxO9JvAVlL2TDRixPmXnO9yrnsTe-D5TU9fkAfieGQZ363XrsoH4VhmTImUh2Fz3_N7/exec', {
+  fetch(https://script.google.com/macros/s/AKfycbzDLLKhJg1-5upRYC3JJBmHBOQm37L_qWwuLXrQYod7y2cXRmdzf_-CzYfNe6EL4mfS/exec', {
     method: 'POST',
     body: JSON.stringify(item),
     headers: {'Content-Type': 'application/json'}
